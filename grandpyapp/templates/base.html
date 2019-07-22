@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <title>Welcome to GrandPy!</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+      
+      <link rel="stylesheet" type="text/css" href="static/css/main.css">
+    </head>
+    <body>
+      <div class="jumbotron text-center teste">
+        <h1> Welcome to GrandPy!! </h1>
+        <img src=" " alt="GrandPy" height="42" width="42">
+      </div>
+      <div class="container"> 
+        <form action="/echo" method="POST">
+          <div class="input-group">
+            <input type="text" id="query" class="form-control" placeholder="Your question please">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit" id="search">
+                <i  class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form> 
+        {% if query %}
+          You said: {{ text }}
+        {% endif %} 
+        <div class="jumbotron message" id="message"> 
+           
+        </div>
+        <div class="jumbotron map" href="" id="url" >
+          <h1>map</h1> 
+          <div id="googleMap" style="width:100%;height:400px;">My map will go here</div>
+          <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZPTAlm4YpD_EYfHeUmNv3gNSkEI-By4&callback=myMap"></script>
+        --></div>
+      </div>
+      <footer>
+        <div class="panel panel-default">
+          <div class="panel-body">DA SILVA Joana</div>
+          <div class="panel-footer">Lien github</div>
+        </div>
+    </footer>
+    </body>  
+    <script src="static/JS/ajax.js"></script>
+    <script src="static/JS/grandpy.js"></script>
+</html>
