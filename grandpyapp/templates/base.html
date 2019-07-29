@@ -13,7 +13,7 @@
     <body>
       <div class="jumbotron text-center teste">
         <h1> Welcome to GrandPy!! </h1>
-        <img src=" " alt="GrandPy" height="42" width="42">
+        <img src="https://pixabay.com/illustrations/alien-robot-android-antennae-blue-1905155/" alt="GrandPy" height="42" width="42">
       </div>
       <div class="container">
         <form action = "/get_word" method = "GET">
@@ -39,17 +39,38 @@
                 $("#message").html(response.html);
                },
                error: function(xhr) {
-                 //Do Something to handle error
+                console.log("erreur summary")
               }
               });
             });
          });
-       </script> 
+       </script>
+       <form action = "/get_word" method = "POST"></form> 
         <div class="jumbotron map" href="" id="url" >
           <h1>map</h1> 
           <div id="googleMap" style="width:100%;height:400px;">My map will go here</div>
-          <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZPTAlm4YpD_EYfHeUmNv3gNSkEI-By4&callback=myMap"></script>
-        --></div>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZPTAlm4YpD_EYfHeUmNv3gNSkEI-By4&callback=myMap"></script>
+      
+      </div>
+    </form>
+    <script>
+      $(document).ready(function() {
+         $('#search').click(function(){
+             var word = $('#query').val();
+             $.ajax({
+             url: "/get_word",
+             type: "post",
+             data: {word: word},
+             success: function(response) {
+             $("#url").html(response.html);
+            },
+            error: function(xhr) {
+              //Do Something to handle error
+           }
+           });
+         });
+      });
+    </script>
       </div>
       <footer>
         <div class="panel panel-default">
