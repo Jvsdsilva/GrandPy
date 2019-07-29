@@ -27,7 +27,12 @@ def get_prediction():
     filtered_sentence = ""
     filtered_sentence = word.split()
 
-    reponse = []
+
+    #data = request.get_json('fr.json') 
+    #print(data)
+
+    reponse =  []
+
     print(filtered_sentence)
     for each in filtered_sentence:
         print(each)
