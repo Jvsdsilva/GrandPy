@@ -13,7 +13,7 @@
     <body>
       <div class="jumbotron text-center teste">
         <h1> Welcome to GrandPy!! </h1>
-        <img src="https://pixabay.com/illustrations/alien-robot-android-antennae-blue-1905155/" alt="GrandPy" height="42" width="42">
+        <img src="https://cdn.pixabay.com/photo/2016/12/13/21/20/alien-1905155_960_720.png" alt="GrandPy" height="42" width="42">
       </div>
       <div class="container">
         <form action = "/get_word" method = "GET">
@@ -45,37 +45,54 @@
             });
          });
        </script>
-       <form action = "/get_word" method = "POST"></form> 
+       <form action = "/get_coord" method = "POST"></form> 
         <div class="jumbotron map" href="" id="url" >
           <h1>map</h1> 
-          <div id="googleMap" style="width:100%;height:400px;">My map will go here</div>
+          <div id="googleMap" style="width:100%;height:400px;">
+            <script>
+              $(document).ready(function() {
+                  $('#search').click(function(){
+                    var word = $('#query').val();
+                    $.ajax({
+                      url: "/get_coord",
+                      type: "get",
+                      data: {word: word},
+                      success: function(response) {
+                        map.data.addGeoJson(response);
+                        /*position:new google.maps.LatLng($("#googleMap").html(response.html));*/
+                      },
+                      error: function(xhr) {
+                        console.log("erreur summary")
+                      }
+                    });
+                  });
+              });
+            </script>  
+            {% with %}
+            {% set location=(48.856614,2.3522219) %}
+            {% set style="width:100%;height:400px;"%}
+
+            {{
+            googlemap(
+                "simple-map",
+                location.0, location.1,
+                markers=[location,],
+                style=style
+                )
+            }}
+
+            {% endwith %}
+          </div>
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZPTAlm4YpD_EYfHeUmNv3gNSkEI-By4&callback=myMap"></script>
-      
       </div>
     </form>
-    <script>
-      $(document).ready(function() {
-         $('#search').click(function(){
-             var word = $('#query').val();
-             $.ajax({
-             url: "/get_word",
-             type: "post",
-             data: {word: word},
-             success: function(response) {
-             $("#url").html(response.html);
-            },
-            error: function(xhr) {
-              //Do Something to handle error
-           }
-           });
-         });
-      });
-    </script>
       </div>
       <footer>
-        <div class="panel panel-default">
-          <div class="panel-body">DA SILVA Joana</div>
-          <div class="panel-footer">Lien github</div>
+        <div class="panel panel-default ">
+          <div class="panel-body foot"> DA SILVA Joana 
+          <a href="https://github.com/Jvsdsilva/GrandPy.git">
+          <img src="https://banner2.kisspng.com/20180326/gxq/kisspng-github-computer-icons-icon-design-github-5ab8a31e334e73.4114704215220498222102.jpg" alt="Github" height="30" width="30">
+          </a>  
         </div>
     </footer>
     </body>  

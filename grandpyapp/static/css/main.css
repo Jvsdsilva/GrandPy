@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
   position: relative;
   margin: 0 auto;
@@ -59,9 +59,14 @@ h1 {
 }
 
 .teste{
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding-top: 45px;
+  padding-bottom: 45px;
   margin-bottom: 30px;
   color: inherit;
-  background-color:  #DAF7A6; 
+  background-color: #33cc33; 
+}
+
+.foot{
+  color: inherit;
+  background-color: #33cc33; 
 }
