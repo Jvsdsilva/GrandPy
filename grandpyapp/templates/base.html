@@ -7,7 +7,6 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
-      
       <link rel="stylesheet" type="text/css" href="static/css/main.css">
     </head>
     <body>
@@ -36,54 +35,61 @@
                 type: "get",
                 data: {word: word},
                 success: function(response) {
-                $("#message").html(response.html);
-               },
-               error: function(xhr) {
-                console.log("erreur summary")
-              }
+                  $("#message").html(response.html);
+                },
+                error: function(xhr) {
+                  console.log("erreur summary"+xhr)
+                }
               });
             });
          });
        </script>
-       <form action = "/get_coord" method = "POST"></form> 
+       <form action = "/get_coord" method = "get"></form>
         <div class="jumbotron map" href="" id="url" >
-          <h1>map</h1> 
-          <div id="googleMap" style="width:100%;height:400px;">
-            <script>
-              $(document).ready(function() {
-                  $('#search').click(function(){
-                    var word = $('#query').val();
-                    $.ajax({
-                      url: "/get_coord",
-                      type: "get",
-                      data: {word: word},
-                      success: function(response) {
-                        map.data.addGeoJson(response);
-                        /*position:new google.maps.LatLng($("#googleMap").html(response.html));*/
-                      },
-                      error: function(xhr) {
-                        console.log("erreur summary")
+          <div id="googleMap" style="width:100%;height:400px;"></div>
+          <script>
+            function initMap() {
+              var mapDiv = document.getElementById('googleMap');
+              var map = new google.maps.Map(mapDiv, {
+                zoom: 8,
+                center: new google.maps.LatLng(-34.397, 150.644)
+              }); 
+              // We add a DOM event here to show an alert if the DIV containing the
+              // map is clicked.
+             /* google.maps.event.addDomListener(mapDiv, 'click', function() {
+                window.alert('Map was clicked!');
+              });*/
+            }
+            $(document).ready(function() {
+              $('#search').click(function(){
+                  var word = $('#query').val();
+                  $.ajax({
+                    url: "/get_coord",
+                    type: "get",
+                    data: {word: word},
+                    success: function(response) {
+                      console.log(response)
+                      // Loop through the results array and place a marker for each
+                      // set of coordinates.
+                      for (var x in response){
+                        var building = response[x]
+                        var latLng = new google.maps.LatLng(building.lat,building.lng);
+                       
+                        var marker = new google.maps.Marker({
+                          position: latLng,
+                          map:initMap()
+                        });
                       }
-                    });
-                  });
+                    },
+                    error: function(xhr) {
+                    console.log("erreur coordinates"+ xhr)
+                  },
+                });
               });
-            </script>  
-            {% with %}
-            {% set location=(48.856614,2.3522219) %}
-            {% set style="width:100%;height:400px;"%}
-
-            {{
-            googlemap(
-                "simple-map",
-                location.0, location.1,
-                markers=[location,],
-                style=style
-                )
-            }}
-
-            {% endwith %}
-          </div>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZPTAlm4YpD_EYfHeUmNv3gNSkEI-By4&callback=myMap"></script>
+            });
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHZPTAlm4YpD_EYfHeUmNv3gNSkEI-By4&callback=initMap"></script>
       </div>
     </form>
       </div>

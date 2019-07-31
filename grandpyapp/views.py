@@ -25,13 +25,14 @@ def get_prediction():
     word = request.args.get('word')
     stop_words = get_stop_words('fr')
     stop_words = get_stop_words('french')
-    print(stop_words)
+    #print(stop_words)
 
     # split query
     filtered_sentence = ""
     filtered_sentence = word.split()
 
     reponse = []
+
     print(filtered_sentence)
     for each in filtered_sentence:
         print(each)
@@ -83,13 +84,14 @@ def get_prediction():
     
     lat = '48.856614'
     lng = '2.3522219'
+
     query = wikipedia.geosearch(lat, lng)
-    print(wikipedia.geosearch(lat, lng))
+    #print(wikipedia.geosearch(lat, lng))
 
     history = query[0]
 
-    print(history)
-    print(wikipedia.summary(history))
+    #print(history)
+    #print(wikipedia.summary(history))
     summary = wikipedia.summary(history)
 
     return jsonify({'html': summary})
@@ -100,19 +102,19 @@ def get_coordinates():
     stop_words = get_stop_words('fr')
     stop_words = get_stop_words('french')
     latlng = []
-    print(stop_words)
+    #print(stop_words)
 
     # split query
     filtered_sentence = ""
     filtered_sentence = word.split()
 
     reponse = []
-    print(filtered_sentence)
+    #print(filtered_sentence)
     for each in filtered_sentence:
-        print(each)
+        #print(each)
         if each not in stop_words:
             reponse.append(each)
-            print(reponse)
+            #print(reponse)
 
     string_query = ' '.join(reponse)
 
@@ -148,11 +150,11 @@ def get_coordinates():
         lat = js["results"][0]["geometry"]["location"]["lat"]
         lng = js["results"][0]["geometry"]["location"]["lng"]
 
-        print('lat', lat, 'lng', lng)"""
+        print('lat', lat, 'lng', lng)
 
-    """location = js['results'][0]['formatted_address']
+    location = js['results'][0]['formatted_address']
 
-        print(location)"""
+    print(location)"""
 
     # print(string_query)
     
@@ -160,36 +162,10 @@ def get_coordinates():
     lng = '2.3522219'
     latlng.append(lat)
     latlng.append(lng)
+    
+    location = json.dumps(latlng)
 
-    # creating a map in the view
-    mymap = Map(
-        identifier="view-side",
-        lat=lat,
-        lng=lng,
-        markers=[(latlng[0], latlng[1])]
-    )
-    sndmap = Map(
-        identifier="sndmap",
-        lat=lat,
-        lng=lng,
-        markers=[
-    {
-    'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-    'lat': lat,
-    'lng': lng,
-    'infobox': "<b>Hello World</b>"
-    },
-    {
-    'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-    'lat': lat,
-    'lng': lng,
-    'infobox': "<b>Hello World from other place</b>"
-    }
-    ]
-    )
-    return render_template('base.html', mymap=mymap, sndmap=sndmap)
-
-    #return jsonify({'html': latlng})
+    return jsonify({'html': location})
 
 if __name__ == "__main__":
     app.run(debug=True)
