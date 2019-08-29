@@ -99,7 +99,9 @@ venv.bak/
 
 # mkdocs documentation
 /site
-.config.py
 # mypy
 .mypy_cache/
 git rm --cached projectname/config.py
+config.py
+__pycache__
+.ipynb_checkpoints
