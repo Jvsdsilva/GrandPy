@@ -1,13 +1,14 @@
 # GrandPy
-How to start:
+### How to start:
+```
     Step 1: You need an API key
         The key parameter contains the API key.
         Type your api key inside “key = “.
     Step 2: Go to browser
         Go to the link : https:
     Step 3: Type your question
-
-Getting an API key:
+```
+### Getting an API key:
 Following are the steps required to get a API key:
 
     1. Go to the below mentioned link
